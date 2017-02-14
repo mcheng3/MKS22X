@@ -1,8 +1,8 @@
-public class Row{
+public class QueenBoard{
 	private int[][] board;
 	private int solutionCount;
 	
-	public Row(int n){
+	public QueenBoard(int n){
 		board = new int[n][n];
 	}
 
@@ -44,7 +44,7 @@ public class Row{
 			board[r][col] += 2;
 			i ++;
 		}
-		System.out.println("Add\n" + toString());
+		System.out.println("Add\n" + toStringDebug());
 	}
 
 	private void removeQueen(int row, int col){
@@ -60,10 +60,10 @@ public class Row{
 			board[r][col] -= 2;
 			i ++;
 		}
-		System.out.println("Remove\n" + toString());
+		System.out.println("Remove\n" + toStringDebug());
 	}
 
-	public String toString(){
+	private String toStringDebug(){
 		String ary = "";
 		for(int r = 0; r < board.length; r++){
 			for(int c = 0; c < board.length; c ++){
@@ -74,8 +74,20 @@ public class Row{
 		return ary;
 	}
 
+	public String toString(){
+		String ary = "";
+		for(int r = 0; r < board.length; r++){
+			for(int c = 0; c < board.length; c ++){
+				if(board[r][c] == 1) ary += 'Q';
+				else ary += '_';
+			}
+			ary += "\n";
+		}
+		return ary;
+	}
+
 	public static void main(String[] args){
-		Row q = new Row(4);
+		QueenBoard q = new QueenBoard(4);
 		System.out.println(q.solve());
 		System.out.println(q.toString());
 
