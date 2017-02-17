@@ -1,6 +1,6 @@
 public class KnightBoard{
     private int[][] board;
-    private boolean hasSolved = false;
+    private boolean hasSolved = true;
 
     public KnightBoard(int startingRows, int startingCols){
 	board = new int[startingRows][startingCols];
@@ -50,28 +50,38 @@ public class KnightBoard{
 
     public void solve(){
 	boolean dontStop = true;
-	for(int r = 0; r < board.length || dontStop; r++){
-	    for(int c = 0; c<board[0].length || dontStop; c++){
-		if(solveH(r, c, 1)){
-		    hasSolved = true;
-		    dontStop = false;
-		}
-		else clear();
-	    }
-	}     
+	solveH(0, 0, 1);    
     }
 
     public boolean solveH(int row, int col, int level){
         if(level == board.length * board[0].length){
+	    board[row][col] = level;
 	    return true;
 	}
 	else{
 	    try{
 		if(board[row][col] == 0){
 		board[row][col] = level;
-		return 
+		if(solveH(row + 2, col + 1, level + 1)||
+		    solveH(row + 2, col - 1, level + 1)||
+		    solveH(row - 2, col + 1, level + 1)||
+		    solveH(row - 2, col - 1, level + 1)||
+		    solveH(row + 1, col + 2, level + 1)||
+		    solveH(row + 1, col - 2, level + 1)||
+		    solveH(row - 1, col + 2, level + 1)||
+		   solveH(row - 1, col - 2, level + 1)){
+		    return true;
+		}
+		board[row][col] = 0;
+		}
+		System.out.println(toString());
 	    }
+	    catch(IndexOutOfBoundsException e){
+		return false;
+	    }
+		
 	    return false;
+	}
     }
 
 
