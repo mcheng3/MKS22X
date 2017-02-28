@@ -54,11 +54,10 @@ public void solve(){
 }
 
 public boolean solveH(int row, int col, int level){
-	System.out.println(row + " " + col + " " + level);
-	System.out.println(toString());
-	if(level == board.length * board[0].length ){
-		board[row][col] = level;
-		return true;
+	
+if(level == board.length * board[0].length + 1){
+				
+return true;
 	}
 	else{
 		try{
