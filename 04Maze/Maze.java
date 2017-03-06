@@ -50,12 +50,12 @@ public class Maze{
 	    }
 	}
 	
-	for(int r = 0; r<maze.length; r++){
+	/*for(int r = 0; r<maze.length; r++){
 		for(int c = 0; c<maze[0].length; c++){
 			System.out.print(maze[r][c]);
 		}
 		System.out.println();
-	}	
+	}*/	
 	//System.out.println(Arrays.deepToString(maze));
 	//    
     }
