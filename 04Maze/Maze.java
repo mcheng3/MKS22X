@@ -28,14 +28,15 @@ public class Maze{
 		numberOfRows++;
 		
 	    }
-
+	    //System.out.println(line.length());
 	    maze = new char[numberOfRows][line.length()];
 	    s.close();
 	}
 	catch (Exception e){
-	    e.printStackTrace();
+	    System.out.println("File not found.");
 	}
-	
+	//System.out.println(file);
+
 	int charCount = 0;
 
 	for(int r = 0; r<maze.length; r++){
@@ -55,8 +56,8 @@ public class Maze{
 		}
 		System.out.println();
 	}	
-	System.out.println(Arrays.deepToString(maze));
-	    
+	//System.out.println(Arrays.deepToString(maze));
+	//    
     }
 
     
@@ -84,7 +85,18 @@ public class Maze{
     */
     public boolean solve(){
             int startr=-1,startc=-1;
-            //Initialize starting row and startint col with the location of the S. 
+            boolean notFound = true;
+            for(int r = 0; r<maze.length && notFound; r++){
+				for(int c = 0; c<maze[0].length; c++){
+					if(maze[r][c] == 'S'){
+						startr = r;
+						startc = c;
+						notFound = false;
+					}
+				}
+			}
+			//System.out.println(startr);
+			//System.out.println(startc);
             maze[startr][startc] = ' ';//erase the S, and start solving!
             return solve(startr,startc);
     }
@@ -104,8 +116,27 @@ public class Maze{
     */
     private boolean solve(int row, int col){
         if(animate){
+        	clearTerminal();
             System.out.println("\033[2J\033[1;1H"+this);
+            for(int r = 0; r<maze.length; r++){
+		for(int c = 0; c<maze[0].length; c++){
+			System.out.print(maze[r][c]);
+		}
+		System.out.println();
+	}	
             wait(20);
+        }
+        if(maze[row][col] == 'E') return true;
+        if(maze[row][col] != '#' && maze[row][col] != '@'){
+        	maze[row][col] = '@';
+        	if(solve(row + 1, col)||
+        		solve(row - 1, col)||
+        		solve(row, col + 1)||
+        		solve(row, col -1)){
+
+        		return true;
+        	}
+        	maze[row][col] = '.';
         }
 
         //COMPLETE SOLVE
@@ -115,5 +146,12 @@ public class Maze{
     public static void main(String[] args){
 	Maze m = new Maze("data1.dat");
 	Maze m2 = new Maze("data2.dat");
+	Maze m3 = new Maze("data3.dat");
+	m.setAnimate(true);
+	m.solve();
+	m2.setAnimate(true);
+	m2.solve();
+	m3.setAnimate(true);
+	m3.solve();
     }
 }
