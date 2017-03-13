@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 //Worked with Naotaka Kinoshita
 public class USACO {
-    
+
     public USACO() {
     }
 
@@ -35,25 +35,25 @@ public class USACO {
                     instructions[i][c] = scan.nextInt();
                 }
             }
-        
-        for (int i = 0; i < instructions.length; i ++) {
-            for(int d = 0; d < instructions[i][2]; d++){
-                stomp(instructions[i][0], instructions[i][1], pasture);
-            }
-            printArray(pasture);
-            System.out.println();
-        }
-        
-        int depth = 0;
-        for(int r = 0; r < pasture.length; r++){
-            for(int c=0; c < pasture[0].length; c++){
-                if(pasture[r][c] < elevation){
-                    depth += elevation - pasture[r][c];
+
+            for (int i = 0; i < instructions.length; i ++) {
+                for(int d = 0; d < instructions[i][2]; d++){
+                    stomp(instructions[i][0], instructions[i][1], pasture);
                 }
+            //printArray(pasture);
+            //System.out.println();
             }
 
-        }
-        return depth * 72 * 72;
+            int depth = 0;
+            for(int r = 0; r < pasture.length; r++){
+                for(int c=0; c < pasture[0].length; c++){
+                    if(pasture[r][c] < elevation){
+                        depth += elevation - pasture[r][c];
+                    }
+                }
+
+            }
+            return depth * 72 * 72;
         }catch (FileNotFoundException e) {
             System.out.println("File Not Found");
             System.exit(0);
@@ -68,6 +68,17 @@ public class USACO {
             }
             System.out.println();
         }
+    }
+    private void printArray(char[][][] ary){
+        for(int d = 0; d < ary.length; d++){
+        for(int r = 0; r < ary[0].length; r++){
+            for(int c=0; c < ary[0][0].length; c++){
+                System.out.print(ary[d][r][c] + " " );
+            }
+           System.out.println();
+        }
+        System.out.println();
+    }
     }
 
     public boolean stomp(int r, int c, int[][] pasture) {
@@ -92,12 +103,72 @@ public class USACO {
         return true;
     }
 
+    public int silver(String filename){
+        char[][][] pasture;
+        int[][] instructions;
+        int r1, c1, r2, c2;
+        int[] firstLine = new int[4];
+        try {
 
-    
-    public static void main(String[]args) {
-        USACO x = new USACO();
-        System.out.println(x.bronze("makelake.1.in"));
-        System.out.println(x.bronze("makelake.2.in"));
-        System.out.println(x.bronze("makelake.3.in"));
+            Scanner scan = new Scanner(new File(filename));
+            for (int i = 0; i < 3; i ++) {
+                firstLine[i] = scan.nextInt();
+                //System.out.println(firstLine[i]);
+            }
+            int rows = firstLine[0];
+            int cols = firstLine[1];
+            int seconds = firstLine[2];
+            pasture = new char[seconds][rows][cols];
+            String line = "";
+      
+            String file = "";
+            for(int i = 0; i < rows + 1; i++){
+                line = scan.nextLine();
+                file += line;
+
+                
+            }
+            System.out.println(file);
+            
+            for(int d = 0; d<pasture.length; d++){
+                int charCount = 0;
+            for(int r = 0; r<pasture[0].length; r++){
+            for(int c = 0; c<pasture[0][0].length; c++){
+                if(file.charAt(charCount) == '\n') charCount++;
+
+                pasture[d][r][c] = file.charAt(charCount);
+                charCount++;
+                
+
+            }
+        }
+        }
+          printArray(pasture);
+        
+            System.out.println(Arrays.deepToString(pasture));
+            r1 = scan.nextInt();
+            c1 = scan.nextInt();
+            r2 = scan.nextInt();
+            c2 = scan.nextInt();
+            scan.close();
+        
+            
+
+            }
+            catch (FileNotFoundException e) {
+            System.out.println("File Not Found");
+            System.exit(0);
+        }
+        return 1;
+
+        }
+
+
+        public static void main(String[]args) {
+            USACO x = new USACO();
+            System.out.println(x.bronze("makelake.1.in"));
+            System.out.println(x.bronze("makelake.2.in"));
+            System.out.println(x.bronze("makelake.3.in"));
+            System.out.println(x.silver("ctravel.1.in"));
+        }
     }
-}
