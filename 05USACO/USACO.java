@@ -69,16 +69,16 @@ public class USACO {
             System.out.println();
         }
     }
-    private void printArray(char[][][] ary){
+    private void printArray(int[][][] ary){
         for(int d = 0; d < ary.length; d++){
-        for(int r = 0; r < ary[0].length; r++){
-            for(int c=0; c < ary[0][0].length; c++){
-                System.out.print(ary[d][r][c] + " " );
+            for(int r = 0; r < ary[0].length; r++){
+                for(int c=0; c < ary[0][0].length; c++){
+                    System.out.print(ary[d][r][c] + " " );
+                }
+                System.out.println();
             }
-           System.out.println();
+            System.out.println();
         }
-        System.out.println();
-    }
     }
 
     public boolean stomp(int r, int c, int[][] pasture) {
@@ -104,7 +104,7 @@ public class USACO {
     }
 
     public int silver(String filename){
-        char[][][] pasture;
+        int[][][] pasture;
         int[][] instructions;
         int r1, c1, r2, c2;
         int[] firstLine = new int[4];
@@ -118,9 +118,9 @@ public class USACO {
             int rows = firstLine[0];
             int cols = firstLine[1];
             int seconds = firstLine[2];
-            pasture = new char[seconds][rows][cols];
+            pasture = new int[seconds + 1][rows][cols];
             String line = "";
-      
+
             String file = "";
             for(int i = 0; i < rows + 1; i++){
                 line = scan.nextLine();
@@ -128,47 +128,89 @@ public class USACO {
 
                 
             }
-            System.out.println(file);
+            //System.out.println(file);
             
             for(int d = 0; d<pasture.length; d++){
                 int charCount = 0;
-            for(int r = 0; r<pasture[0].length; r++){
-            for(int c = 0; c<pasture[0][0].length; c++){
-                if(file.charAt(charCount) == '\n') charCount++;
+                for(int r = 0; r<pasture[0].length; r++){
+                    for(int c = 0; c<pasture[0][0].length; c++){
+                        if(file.charAt(charCount) == '\n') charCount++;
 
-                pasture[d][r][c] = file.charAt(charCount);
-                charCount++;
-                
+                        if(file.charAt(charCount) == '.'){
+                            pasture[d][r][c] = 0;
+                        }
+                        if(file.charAt(charCount) == '*'){
+                            pasture[d][r][c] = -1;
+                        }
+                        charCount++;
 
+
+                    }
+
+
+                }
             }
-        }
-        }
-          printArray(pasture);
-        
-            System.out.println(Arrays.deepToString(pasture));
+           // printArray(pasture);
+
+           // System.out.println(Arrays.deepToString(pasture));
             r1 = scan.nextInt();
             c1 = scan.nextInt();
             r2 = scan.nextInt();
             c2 = scan.nextInt();
             scan.close();
-        
-            
+            pasture[0][r1 -1][c1 - 1] = 1;
+            for(int s = 1; s < seconds + 1; s++){
+                for(int r = 0; r<pasture[0].length; r++){
+                    for(int c = 0; c<pasture[0][0].length; c++){
+                        if(pasture[s][r][c] == -1);
+                        else{
+                        try{
+                            if(pasture[s-1][r+1][c] == -1);
+                            else pasture[s][r][c] += pasture[s-1][r + 1][c];
+                        }
+                        catch(IndexOutOfBoundsException e){}
+                        try{
+                            if(pasture[s-1][r-1][c] == -1);
+                            else pasture[s][r][c] += pasture[s-1][r - 1][c];
+                        }
+                        catch(IndexOutOfBoundsException e){}
+                        try{
+                            if(pasture[s-1][r][c+1] == -1);
+                            else pasture[s][r][c] += pasture[s-1][r ][c + 1];
+                        }
+                        catch(IndexOutOfBoundsException e){}
+                        try{
+                            if(pasture[s-1][r][c - 1] == -1);
+                            else pasture[s][r][c] += pasture[s-1][r][c - 1];
+                        }
+                        catch(IndexOutOfBoundsException e){}
 
+                    }
+                }
             }
-            catch (FileNotFoundException e) {
+
+        }
+       // printArray(pasture);
+        return pasture[seconds][r2 - 1][c2 - 1];
+    }
+        catch (FileNotFoundException e) {
             System.out.println("File Not Found");
             System.exit(0);
         }
-        return 1;
 
-        }
+        return -1;
 
-
-        public static void main(String[]args) {
-            USACO x = new USACO();
-            System.out.println(x.bronze("makelake.1.in"));
-            System.out.println(x.bronze("makelake.2.in"));
-            System.out.println(x.bronze("makelake.3.in"));
-            System.out.println(x.silver("ctravel.1.in"));
-        }
     }
+
+
+    public static void main(String[]args) {
+        USACO x = new USACO();
+        System.out.println(x.bronze("makelake.1.in"));
+        System.out.println(x.bronze("makelake.2.in"));
+        System.out.println(x.bronze("makelake.3.in"));
+        System.out.println(x.silver("ctravel.1.in"));
+        System.out.println(x.silver("ctravel.2.in"));
+        System.out.println(x.silver("ctravel.3.in"));
+        System.out.println(x.silver("ctravel.4.in"));
+    }
+}
