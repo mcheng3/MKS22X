@@ -44,12 +44,19 @@ public class Quick{
     }
 
     public static int quickselectHelper(int[] a , int start, int end, int k){
-	return 1;
-	
+	if(k > 0 && k <= end - start + 1){
+		int[] pivots = part(a, start, end);
+		if(pivots[0] - start <= k - 1  && k - 1  <= pivots[1] - start) return a[pivots[0]];
+		if(pivots[0] - start > k - 1 ) return quickselectHelper(a, start, pivots[0] - 1, k);
+		else return quickselectHelper(a, pivots[1] + 1, end, k-pivots[1] + start - 1);
+	}
+	return -1;
     }
 
     private static int quickselect(int[] a, int k){
-	return 1;
+    	if(k > a.length) throw new IndexOutOfBoundsException();
+    	int[] copy = a;
+		return quickselectHelper(copy, 0, a.length - 1, k);
     }
 
     
@@ -65,13 +72,16 @@ public class Quick{
 
     public static void main(String[] args){
 	int[] data = {999,999, 999, 4, 3, 2, 1, 0, 55, 999, 999, 999, 999, 999, 999, 999, 55, 55, 55, 654 ,6546,54654,6612 ,135,546,4354,384,384};
-	int[] a = new int[100000];
-	for(int i = 0; i < a.length; i++){
-	    a[i] = (int)(Math.random() * 100000000);
+	System.out.println(quickselect(data, 10));
+	int[] a = new int[100];
+	for(int i = 1; i < a.length; i++){
+	    a[i -1] = i;
 	}
-	quicksort(data);
-	System.out.println(Arrays.toString(data));
-	quicksort(a);
 	System.out.println(Arrays.toString(a));
+	System.out.println(quickselect(a, 24));
+	quicksort(data);
+	//System.out.println(Arrays.toString(data));
+	quicksort(a);
+	//System.out.println(Arrays.toString(a));
     }
 }
