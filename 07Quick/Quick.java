@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class Quick{
-    public static void part(int[] data, int start, int end){
-	if(end - start <= 1) return;
-	else{
+    public static int[] part(int[] data, int start, int end){
+	
+      
 	int random = (int)(Math.random() * (end - start -1 ) + start + 1);
 	//System.out.println(random);
 	int pivot = data[random];
@@ -24,19 +24,33 @@ public class Quick{
 		gt--;
 	    }
 	}
-	//System.out.println(Arrays.toString(data));
-	    part(data, start, lt);
-	    part(data, gt, end);
-	}
+	int[] val = {lt, gt};
+	return val;
 	
+	
+    }
+    
+    private static void quicksortHelper(int[] a, int start, int end){
+	if(end - start <= 1) return;
+	else{
+	    int[] result = part(a, start, end);
+	    quicksortHelper(a, start, result[0]);
+	    quicksortHelper(a, result[1], end);
+	}
     }
 
     public static void quicksort(int[] a){
-	part(a, 0, a.length - 1);
+	quicksortHelper(a, 0, a.length - 1);
     }
 
-    //public static int quickselect(int[a], int k){
-	
+    public static int quickselect(int[]a , int k){
+	for(int i = 0, i <= k){
+	    part(a, 0, a.lenth - 1);
+	}
+    }
+    
+    private static int quick
+    
 
     private static int[] swap(int[] a, int i, int j){
 	int hold = a[i];
