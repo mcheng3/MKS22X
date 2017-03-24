@@ -43,13 +43,17 @@ public class Quick{
 	quicksortHelper(a, 0, a.length - 1);
     }
 
-    public static int quickselect(int[]a , int k){
-	for(int i = 0, i <= k){
-	    part(a, 0, a.lenth - 1);
-	}
+    public static int quickselectHelper(int[] a , int start, int end, int k){
+	return 1;
+	
     }
+
+    private static int quickselect(int[] a, int k){
+	return 1;
+    }
+
     
-    private static int quick
+ 
     
 
     private static int[] swap(int[] a, int i, int j){
@@ -61,7 +65,13 @@ public class Quick{
 
     public static void main(String[] args){
 	int[] data = {999,999, 999, 4, 3, 2, 1, 0, 55, 999, 999, 999, 999, 999, 999, 999, 55, 55, 55, 654 ,6546,54654,6612 ,135,546,4354,384,384};
+	int[] a = new int[100000];
+	for(int i = 0; i < a.length; i++){
+	    a[i] = (int)(Math.random() * 100000000);
+	}
 	quicksort(data);
 	System.out.println(Arrays.toString(data));
+	quicksort(a);
+	System.out.println(Arrays.toString(a));
     }
 }
