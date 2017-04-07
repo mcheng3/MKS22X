@@ -13,8 +13,6 @@ public class MyLinkedList{
 	    this.value = value;
 	    this.next = next;
 	    this.prev = prev;
-	    next.prev = this;
-	    prev.next = this;
 	}
 	
     }
@@ -25,9 +23,9 @@ public class MyLinkedList{
     public MyLinkedList(int size){
 	this.size = size;
 	start = new LNode(0);
-	LNode current = start.next;
+	LNode current = start;
         for(int i = 0; i < size; i++){
-	    current = new LNode(0, current.next, current.prev);
+	    current.next = new LNode(0, null, current);
 	    current = current.next;
 	}
     }
@@ -42,10 +40,14 @@ public class MyLinkedList{
         String ans = "[";
 	System.out.println(current.value);
 	for(int i = 0; i < size - 1; i++){
-	    ans += current.value + ", ";
+	    String p = "null";
+	    String n = "null";
+	    if(current.prev != null) p = Integer.toString(current.prev.value);
+	    if(current.next != null) p = Integer.toString(current.next.value);
+	    ans += "(" + p + ")" +  current.value + "(" + n + ")" + ", " ;
 	    current = current.next;
 	}
-	ans += current.value + "]";
+	ans += "(" + current.prev.value  + ")"+ current.value +"(" + "null"  + ")" + "]";
 	return ans;
     }
 	    
@@ -54,6 +56,7 @@ public class MyLinkedList{
 	MyLinkedList x = new MyLinkedList(3);
 	x.add(5);
 	System.out.println(x.toString());
+
     }
 }
 	
