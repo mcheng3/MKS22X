@@ -120,7 +120,14 @@ public class MyLinkedList<T> implements Iterable<Integer>{
 	}
 
 	public void add(int index, int value){
-
+		LNode temp = getNthNode(index);
+		LNode n = new LNode(value);
+		if(temp != head) temp.prev.next = n;
+		else head = n;
+		n.prev = temp.prev;
+		temp.prev = n;
+		n.next = temp; 
+		size++;
 	}
 
 	public String toString(){
@@ -160,6 +167,8 @@ public class MyLinkedList<T> implements Iterable<Integer>{
 		x.remove(2);
 		System.out.println(x.toString());
 		System.out.println(x.set(0, 9123232));
+		System.out.println(x.toString());
+		x.add(1, 3);
 		System.out.println(x.toString());
 		//System.out.println(x.getNthNode(4).toString());	
 		
