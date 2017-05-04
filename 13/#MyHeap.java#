@@ -1,0 +1,32 @@
+public class MyHeap{
+    private ArrayList<String> heap;
+   
+    public MyHeap(){
+	heap = new ArrayList<String>;
+    }
+    
+    public MyHeap(boolean heapStatus){
+	 
+    }
+    
+    private boolean pushUp(int index){
+	String temp = heap.get(index);
+	while(index > 1 && temp.compareTo(heap.get(index/2)) > 0){
+	    heap.set(index, heap.get(index/2));
+	    index /= 2;
+	}
+	heap.set(index/2, temp);
+    }
+    
+    private void pushDown(int index){
+    }
+    
+    public void add(String s){
+	
+    }
+    public static void main(String[] args){
+    }
+}	
+
+
+	
