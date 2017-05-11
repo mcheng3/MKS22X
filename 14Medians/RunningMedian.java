@@ -41,16 +41,16 @@ public class RunningMedian{
 	}
 
 	public double getMedian(){
-		//System.out.println(left + " " + right);
+		System.out.println(left + " " + right);
 		return median;
 	}
 
 	public static void main(String[] args){
 		RunningMedian a = new RunningMedian();
-	for (int i = 0; i < 10; i ++) {
-	    a.add(new Integer(i));
-	    System.out.println("" + i + " " + a.getMedian());
-	}
+		for (int i = 0; i < 50; i ++) {
+	    	a.add(i);
+	    	System.out.println("" + i + ":" + a.getMedian());
+		}
 	}
 
 
