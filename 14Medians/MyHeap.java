@@ -34,19 +34,34 @@ public class MyHeap{
 	}
 	
 	private boolean pushDown(int index){
-		while(index * 2 < heap.size() && heap.get(index) < heap.get(index * 2) && isMax){
-			int temp = heap.get(index * 2);
-			heap.set(index * 2, heap.get(index));
-			heap.set(index, temp);
-			index *= 2;
+	    int child = index * 2;
+	    while(index * 2 < heap.size() && isMax){
+		if(index * 2 + 1 < heap.size()  && heap.get(index * 2 + 1) > heap.get(index * 2)){
+		    child = index * 2 + 1;
 		}
-		while(index * 2 < heap.size()  && heap.get(index) > heap.get(index * 2) && !isMax){
-			int temp = heap.get(index * 2);
-			heap.set(index * 2, heap.get(index));
-			heap.set(index, temp);
-			index *= 2;
+		if(heap.get(child) > heap.get(index)){
+		    int temp = heap.get(child);
+		    heap.set(child, heap.get(index));
+		    heap.set(index, temp);
 		}
-		return true;
+		else{
+		    index = heap.size() ;
+		}
+	    }
+	    while(index * 2 < heap.size() && !isMax){
+		if(index * 2 + 1 < heap.size() && heap.get(index * 2 + 1) < heap.get(index * 2)){
+		    child = index * 2 + 1;
+		}
+		if(heap.get(child) < heap.get(index)){
+		    int temp = heap.get(child);
+		    heap.set(child, heap.get(index));
+		    heap.set(index, temp);
+		}
+		else{
+		    index = heap.size() ;
+		}
+	    }
+	    return true;
 	}
 
 	public int size(){
@@ -75,13 +90,15 @@ public class MyHeap{
 		return(Arrays.toString(heap.toArray()));
 	}
 	public static void main(String[] args){
-		MyHeap heap = new MyHeap();
+		MyHeap heap = new MyHeap(false);
 		heap.add(1);
 		heap.add(0);
 		heap.add(4);
 		heap.add(100);
 		heap.add(-4);
 		heap.add(3);
+		heap.remove();
+		heap.remove();
 		System.out.println(heap);
 	}
 }	
