@@ -34,34 +34,38 @@ public class MyHeap{
 	}
 	
 	private boolean pushDown(int index){
-	    int child = index * 2;
-	    while(index * 2 < heap.size() && isMax){
-		if(index * 2 + 1 < heap.size()  && heap.get(index * 2 + 1) > heap.get(index * 2)){
-		    child = index * 2 + 1;
+		
+		while(index * 2 < heap.size() && isMax){
+			int child = index * 2;
+			if(index * 2 + 1 < heap.size()  && heap.get(index * 2 + 1) > heap.get(index * 2)){
+				child = index * 2 + 1;
+			}
+			if(heap.get(child) > heap.get(index)){
+				int temp = heap.get(child);
+				heap.set(child, heap.get(index));
+				heap.set(index, temp);
+				index = child;
+			}
+			else{
+				index = heap.size() ;
+			}
 		}
-		if(heap.get(child) > heap.get(index)){
-		    int temp = heap.get(child);
-		    heap.set(child, heap.get(index));
-		    heap.set(index, temp);
+		while(index * 2 < heap.size() && !isMax){
+			int child = index * 2;
+			if(index * 2 + 1 < heap.size() && heap.get(index * 2 + 1) < heap.get(index * 2)){
+				child = index * 2 + 1;
+			}
+			if(heap.get(child) < heap.get(index)){
+				int temp = heap.get(child);
+				heap.set(child, heap.get(index));
+				heap.set(index, temp);
+				index = child;
+			}
+			else{
+				index = heap.size();
+			}
 		}
-		else{
-		    index = heap.size() ;
-		}
-	    }
-	    while(index * 2 < heap.size() && !isMax){
-		if(index * 2 + 1 < heap.size() && heap.get(index * 2 + 1) < heap.get(index * 2)){
-		    child = index * 2 + 1;
-		}
-		if(heap.get(child) < heap.get(index)){
-		    int temp = heap.get(child);
-		    heap.set(child, heap.get(index));
-		    heap.set(index, temp);
-		}
-		else{
-		    index = heap.size() ;
-		}
-	    }
-	    return true;
+		return true;
 	}
 
 	public int size(){
