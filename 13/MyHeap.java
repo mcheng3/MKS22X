@@ -33,17 +33,35 @@ public class MyHeap{
 	}
 	
 	private boolean pushDown(int index){
-		while(index * 2 < heap.size()  && heap.get(index).compareTo(heap.get(index * 2)) < 0 && isMax){
-			String temp = heap.get(index * 2);
-			heap.set(index * 2, heap.get(index));
-			heap.set(index, temp);
-			index *= 2;
+		while(index * 2 < heap.size() && isMax){
+			int child = index * 2;
+			if(index * 2 + 1 < heap.size()  && heap.get(index * 2 + 1).compareTo(heap.get(index * 2)) > 0){
+				child = index * 2 + 1;
+			}
+			if(heap.get(child).compareTo(heap.get(index)) > 0) {
+				String temp = heap.get(child);
+				heap.set(child, heap.get(index));
+				heap.set(index, temp);
+				index = child;
+			}
+			else{
+				index = heap.size() ;
+			}
 		}
-		while(index * 2 < heap.size() && heap.get(index).compareTo(heap.get(index * 2)) > 0 && !isMax){
-			String temp = heap.get(index * 2);
-			heap.set(index * 2, heap.get(index));
-			heap.set(index, temp);
-			index *= 2;
+		while(index * 2 < heap.size() && !isMax){
+			int child = index * 2;
+			if(index * 2 + 1 < heap.size() && heap.get(index * 2 + 1).compareTo(heap.get(index * 2)) < 0) {
+				child = index * 2 + 1;
+			}
+			if(heap.get(child).compareTo(heap.get(index)) < 0) {
+				String temp = heap.get(child);
+				heap.set(child, heap.get(index));
+				heap.set(index, temp);
+				index = child;
+			}
+			else{
+				index = heap.size();
+			}
 		}
 		return true;
 	}
@@ -75,6 +93,8 @@ public class MyHeap{
 		heap.add("d");
 		heap.add("b");
 		heap.add("zzz");
+		heap.remove();
+		heap.remove();
 		System.out.println(heap);
 	}
 }	
