@@ -1,7 +1,7 @@
 import java.util.Stack;
 public class StackCalc{
 	
-	public static int eval(String eq){
+	public static double eval(String eq){
 		String[] ary = eq.split(" ");
 		Stack<Double> s = new Stack<Double>();
 		for(int i = 0; i < ary.length; i++){
@@ -26,7 +26,7 @@ public class StackCalc{
 	}
 
 	private static double applyOperation(String op, double num2, double num1){
-		double result = 0;
+		double result = 0.0;
 		switch (op) {
 				case "+":
 					result = num1 + num2;
