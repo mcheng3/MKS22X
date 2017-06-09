@@ -14,7 +14,7 @@ public class StackCalc{
 			}
 		}
 		double ans = s.pop();
-		return (int) ans;
+		return ans;
 	}
 
 	private static boolean isOperation(String character){
